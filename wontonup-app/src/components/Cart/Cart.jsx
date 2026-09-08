@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 import CartItem from '../CartItem/CartItem'
 
 function Cart() {
   const [isOpen, setIsOpen] = useState(false)
+
+  const items = useSelector((state) => state.cart.items)
 
   useEffect(() => {
     const closeOnEscape = (event) => {
@@ -16,12 +19,12 @@ function Cart() {
     return () => document.removeEventListener('keydown', closeOnEscape)
   }, [])
 
-  // const total = items.reduce((sum, item) => sum + Number(item.price), 0)
+  const total = items.reduce((sum, item) => sum + Number(item.price), 0)
 
   return (
     <>
       <button type="button" className="cart-trigger" onClick={() => setIsOpen(true)}>
-        Cart <span>0</span>
+        Cart <span>{items.length}</span>
       </button>
 
       {isOpen && (
@@ -43,7 +46,7 @@ function Cart() {
               <>
                 <div className="cart-items">
                   {items.map((item, index) => (
-                    <CartItem key={`${item.id}-${index}`} item={item} onRemove={onRemove} />
+                    <CartItem key={`${item.id}-${index}`} item={item} />
                   ))}
                 </div>
                 <div className="cart-total">

@@ -1,4 +1,8 @@
-function MenuItem({ item, onAdd }) {
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../reducers/cartReducer';
+
+function MenuItem({ item }) {
+    const dispatch = useDispatch();
 
     return (
         <div className="menu-item">
@@ -8,7 +12,7 @@ function MenuItem({ item, onAdd }) {
             </div>
             <div className="menu-item-footer">
                 <span className="menu-item-price">{Number(item.price).toFixed(2)} kr</span>
-                <button type="button" className="add-to-cart">
+                <button type="button" className="add-to-cart" onClick={() => dispatch(addToCart(item))}>
                     Add
                 </button>
             </div>

@@ -17,7 +17,7 @@ function Menu() {
 
   const menuItems = items.map((item) => (
       <MenuItem key={item.id} item={item} />
-      ));
+));
 
   return (
     <section className="menu">
